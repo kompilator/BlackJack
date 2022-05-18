@@ -9,16 +9,16 @@ namespace BlackJack
 
         public int LimitTotal { get; set; } = 17;
 
-        public ICard RobotHit(IDeck deck)
+        public void RobotHit(IDeck deck)
         {
-            ICard card = null;
+ 
             while(Total <= LimitTotal && Total < 21)
             {
-                card = Hit(deck, this);
+                Hit(deck, this);
  
             }
 
-            return card;
+ 
         }
     }
 }

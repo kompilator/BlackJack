@@ -21,8 +21,8 @@ namespace BlackJack
 
         internal static void PrintHit(ICard card, IBasePlayer player)
         {
-            if (player is Dealer)
-                Console.WriteLine("Dealer Hit with {0}. Total is {1}", card, player.Total);
+            if (player is IDealer)
+                Console.WriteLine("***** Dealer Hit with {0}. Total is {1} *****", card, player.Total);
             else
                 Console.WriteLine("Hit with {0}. Total is {1}", card, player.Total);
         }

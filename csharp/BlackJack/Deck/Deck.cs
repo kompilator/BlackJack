@@ -6,7 +6,7 @@ namespace BlackJack
 {
     public class Deck : IDeck
     {
-        public Queue<Card> Cards { get; set; }
+        public Queue<ICard> Cards { get; set; }
         public Deck()
         {
 
@@ -19,18 +19,21 @@ namespace BlackJack
             Random random = new Random();
 
 
-            List<Card> deck = new List<Card>();
+            List<ICard> deck = new List<ICard>();
 
             foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
 
                 for (int i = 1; i < 14; i++)
                 {
-                    deck.Add(new Card { Rank = i, Suit = suit });
+                    ICard card = Factory.CreateCard();
+                    card.Rank = i;
+                    card.Suit = suit;
+                    deck.Add(card);
                 }
             }
-            IOrderedEnumerable<Card> shuffleDeck = deck.OrderBy(i => random.Next());
-            Cards = new Queue<Card>(shuffleDeck);
+            IOrderedEnumerable<ICard> shuffleDeck = deck.OrderBy(i => random.Next());
+            Cards = new Queue<ICard>(shuffleDeck);
         }
 
     }

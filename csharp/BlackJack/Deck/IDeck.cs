@@ -4,7 +4,7 @@ namespace BlackJack
 {
     public interface IDeck
     {
-        Queue<Card> Cards { get; set; }
+        Queue<ICard> Cards { get; set; }
 
         void newDeck();
     }

@@ -24,19 +24,25 @@ namespace BlackJack
             if (player.Total == 21)
             {
                 PrintConsole.PrintHit(card, player);
-                PrintConsole.PlayerWon();
-                playAgain(dealer, player, deck);
+                if (player is IPlayer)
+                {
+                    PrintConsole.PlayerWon();
+                    playAgain(dealer, player, deck);
+                }
                 return;
             }
             else if (player.Total > 21)
             {
                 PrintConsole.PrintHit(card, player);
-                PrintConsole.YouLost();
-                playAgain(dealer, player, deck);
+                if (player is IPlayer)
+                {
+                    PrintConsole.YouLost();
+                    playAgain(dealer, player, deck);
+                }
                 return;
             }
             PrintConsole.PrintHit(card, player);
-            GameLogic.roundnumber++;
+            roundnumber++;
         }
 
         public static void CheckForWin(IPlayer player, IDealer dealer, IDeck deck)
@@ -45,11 +51,11 @@ namespace BlackJack
             var dealerdiff = 21 - dealer.Total;
 
 
-            if (playerdiff < dealerdiff && playerdiff > -1)
+            if (playerdiff < dealerdiff && playerdiff > -1 || dealerdiff < 0)
             {
                 Console.WriteLine("You won!");
             }
-            else if (playerdiff > dealerdiff && dealerdiff > -1)
+            else if (playerdiff > dealerdiff && dealerdiff > -1 || playerdiff < 0)
             {
                 Console.WriteLine("Dealer won!");
             }
@@ -71,20 +77,23 @@ namespace BlackJack
                 Reset(dealer, player, deck);
         }
 
-        internal static void PlayerTurn(IPlayer player, IDealer dealer, IDeck deck)
+        internal static void Loop(IPlayer player, IDealer dealer, IDeck deck)
         {
+            if (roundnumber == 1)
+                dealer.Hit(deck, dealer);
+
             PrintConsole.StandOrHit();
 
-            string standOrHit = Console.ReadLine(); 
+            string standOrHit = Console.ReadLine();
             ICard card = Factory.CreateCard();
 
             if (standOrHit == "Hit")
             {
                 player.Hit(deck, dealer);
-                
+
 
             }
-            else if(standOrHit == "Stand")
+            else if (standOrHit == "Stand")
             {
                 dealer.RobotHit(deck);
                 CheckForWin(player, dealer, deck);

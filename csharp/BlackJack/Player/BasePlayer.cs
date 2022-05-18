@@ -25,17 +25,19 @@ namespace BlackJack
 
                 else
                     Total += 1;
+
                 GameLogic.CheckForLoss(card, this, deck, dealer);
                 return card;
             }
             else
             {
                 Total += Math.Min(card.Rank, 10);
+
                 GameLogic.CheckForLoss(card, this, deck, dealer);
                 return card;
             }
         }
- 
+
 
 
     }

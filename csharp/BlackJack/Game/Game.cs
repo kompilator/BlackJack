@@ -18,11 +18,7 @@ namespace BlackJack
 
             while (GameLogic.play)
             {
-                if(GameLogic.roundnumber == 1)
-                    dealer.Hit(deck, dealer);
-                GameLogic.PlayerTurn(player, dealer, deck);
-                
-
+                GameLogic.Loop(player, dealer, deck);
             }
 
         }
