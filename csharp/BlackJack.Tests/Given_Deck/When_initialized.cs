@@ -23,5 +23,7 @@ namespace BlackJack.Tests.Given_Deck
         {
             Assert.AreEqual(4, _deck.Cards.Select(x => (int)x.Suit).Distinct().ToList().Count);
         }
+
+
     }
 }
